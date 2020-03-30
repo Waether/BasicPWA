@@ -1,0 +1,13 @@
+{
+  "name": "awesome-pwa-app",
+  "version": "0.0.1",
+  "description": "The best PWA app you'll ever find.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "license": "MIT"
+}
