@@ -1,0 +1,22 @@
+{
+    "name": "Awesome PWA App",
+    "short_name": "awesomepwaapp",
+    "description": "Progressive Web App that does things.",
+    "icons": [
+        {
+            "src": "public/icons/icon-32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        // ...
+        {
+            "src": "public/icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/views/index.html",
+    "display": "standalone",
+    "theme_color": "#B12A34",
+    "background_color": "#B12A34"
+}
