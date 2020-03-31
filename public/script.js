@@ -14,6 +14,12 @@ function appendNewDream(dream) {
     dreamsList.appendChild(newListItem);
 }
 
+if('serviceWorker' in navigator) {
+    navigator.serviceWorker
+        .register('/basicpwa/sw.js')
+        .then(function() { console.log('Service Worker Registered'); });
+}
+
 // fetch the initial list of dreams
 fetch("/dreams")
     .then(response => response.json()) // parse the JSON from the server

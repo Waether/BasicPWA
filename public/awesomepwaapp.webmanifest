@@ -1,6 +1,6 @@
 {
-    "name": "Awesome PWA App",
-    "short_name": "awesomepwaapp",
+    "name": "Basic PWA App",
+    "short_name": "basicpwa",
     "description": "Progressive Web App that does things.",
     "icons": [
         {
