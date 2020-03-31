@@ -2,16 +2,15 @@ self.addEventListener('install', function(e) {
     e.waitUntil(
         caches.open('video-store').then(function(cache) {
             return cache.addAll([
-                '/basicpwa/',
-                '/basicpwa/index.html',
-                '/basicpwa/sw.js',
-                '/basicpwa/public/icons/',
-                '/basicpwa/public/icons/icon-32.png',
-                '/basicpwa/public/icons/icon-512.png',
-                '/basicpwa/public/scripts/',
-                '/basicpwa/public/scripts/index.js',
-                '/basicpwa/public/stylesheet/',
-                '/basicpwa/public/stylesheet/style.css'
+                '/index.html',
+                '/sw.js',
+                '/public/icons/',
+                '/public/icons/icon-32.png',
+                '/public/icons/icon-512.png',
+                '/public/scripts/',
+                '/public/scripts/index.js',
+                '/public/stylesheet/',
+                '/public/stylesheet/style.css'
             ]);
         })
     );

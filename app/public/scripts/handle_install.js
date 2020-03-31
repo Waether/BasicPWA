@@ -1,3 +1,5 @@
+console.log("Handle Install triggered !");
+
 if('serviceWorker' in navigator) {
     navigator.serviceWorker
         .register('/sw.js')
