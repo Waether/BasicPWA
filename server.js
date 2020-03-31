@@ -1,9 +1,12 @@
 const express = require("express");
+const https = require('https');
+const fs = require('fs');
 const app = express();
 
 app.use('/', express.static('app/'));
 
-// listen for requests :)
-const listener = app.listen(process.env.PORT, () => {
-    console.log("Your app is listening on port " + listener.address().port);
-});
+https.createServer({
+    key: fs.readFileSync('/etc/ssl/private/pwa-selfsigned.key'),
+    cert: fs.readFileSync('/etc/ssl/certs/pwa-selfsigned.crt')
+}, app)
+    .listen(3000);
