@@ -1,4 +1,4 @@
-console.log("Handle Install triggered !");
+console.log("Handle Install loaded !");
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
