@@ -1,5 +1,6 @@
 const express = require("express");
 const https = require('https');
+const http = require('http');
 const fs = require('fs');
 const app = express();
 
@@ -9,13 +10,24 @@ app.get('/', (request, response) => {
     response.sendFile(__dirname + "/app/index.html");
 });
 
-https.createServer({
-    key: fs.readFileSync('server.key'),
-    cert: fs.readFileSync('server.cert')
-}, app)
-    .on('error', function(err) {
-        console.error(err)
-    })
-    .listen(3000, function () {
-        console.log('Example app listening on port 3000! Go to https://localhost:3000/')
-    });
+
+const privateKey = fs.readFileSync('privkey.pem', 'utf8');
+const certificate = fs.readFileSync('cert.pem', 'utf8');
+const ca = fs.readFileSync('chain.pem', 'utf8');
+
+const credentials = {
+    key: privateKey,
+    cert: certificate,
+    ca: ca
+};
+
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(credentials, app);
+
+httpServer.listen(80, () => {
+    console.log('HTTP Server running on port 80');
+});
+
+httpsServer.listen(443, () => {
+    console.log('HTTPS Server running on port 443');
+});
