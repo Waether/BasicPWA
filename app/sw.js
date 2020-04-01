@@ -10,6 +10,7 @@ const urlsToCache = [
 ];
 
 self.addEventListener('install', function(event) {
+    console.log('[ServiceWorker] Install');
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(function(cache) {
@@ -35,6 +36,7 @@ self.addEventListener('activate', function(e) {
 });
 
 self.addEventListener('fetch', function(e) {
+    console.log('[ServiceWorker] Fetch');
     console.log(e.request.url);
     e.respondWith(
         caches.match(e.request).then(function(response) {
