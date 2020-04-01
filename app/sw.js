@@ -1,4 +1,4 @@
-var CACHE_NAME = 'my-site-cache-v1';
+var CACHE_NAME = 'basic-pwa-app';
 var urlsToCache = [
     '/',
     '/index.html',
