@@ -10,7 +10,6 @@ const urlsToCache = [
 ];
 
 self.addEventListener('install', function(event) {
-    // Perform install steps
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(function(cache) {
@@ -35,29 +34,11 @@ self.addEventListener('activate', function(e) {
     return self.clients.claim();
 });
 
-self.addEventListener('fetch', function(event) {
-    event.respondWith(
-        caches.match(event.request)
-            .then(function(response) {
-                // Cache hit - return response
-                if (response) {
-                    return response;
-                }
-
-                return fetch(event.request).then(
-                    function(response) {
-                        if(!response || response.status !== 200 || response.type !== 'basic') {
-                            return response;
-                        }
-
-                        let responseToCache = response.clone();
-                        caches.open(CACHE_NAME)
-                            .then(function(cache) {
-                                cache.put(event.request, responseToCache);
-                            });
-                        return response;
-                    }
-                );
-            })
+self.addEventListener('fetch', function(e) {
+    console.log(e.request.url);
+    e.respondWith(
+        caches.match(e.request).then(function(response) {
+            return response || fetch(e.request);
+        })
     );
 });
