@@ -1,6 +1,7 @@
 const app = (() => {
   'use strict';
 
+  let mySubscription = null;
   let isSubscribed = false;
   let swRegistration = null;
 
@@ -87,6 +88,9 @@ const app = (() => {
 
   function updateSubscriptionOnServer(subscription) {
 
+    if (subscription)
+      mySubscription = subscription;
+
     console.log("Sending POST to server ...");
     console.log("Sending : " + JSON.stringify(subscription));
     const data = {
@@ -116,7 +120,7 @@ const app = (() => {
 
     if (subscription) {
       subscriptionJson.textContent = JSON.stringify(subscription);
-      subAndEndpoint.style.display = 'block';
+      // subAndEndpoint.style.display = 'block';
     } else {
       subAndEndpoint.style.display = 'none';
     }
@@ -142,8 +146,8 @@ const app = (() => {
   function urlB64ToUint8Array(base64String) {
     const padding = '='.repeat((4 - base64String.length % 4) % 4);
     const base64 = (base64String + padding)
-      .replace(/\-/g, '+')
-      .replace(/_/g, '/');
+        .replace(/\-/g, '+')
+        .replace(/_/g, '/');
 
     const rawData = window.atob(base64);
     const outputArray = new Uint8Array(rawData.length);
@@ -159,19 +163,51 @@ const app = (() => {
       console.log('Service Worker and Push is supported');
 
       navigator.serviceWorker.register('sw.js')
-      .then(swReg => {
-        console.log('Service Worker is registered', swReg);
+          .then(swReg => {
+            console.log('Service Worker is registered', swReg);
 
-        swRegistration = swReg;
+            swRegistration = swReg;
 
-        initializeUI();
-      })
-      .catch(err => {
-        console.error('Service Worker Error', err);
-      });
+            initializeUI();
+          })
+          .catch(err => {
+            console.error('Service Worker Error', err);
+          });
     });
   } else {
     console.warn('Push messaging is not supported');
     pushButton.textContent = 'Push Not Supported';
   }
+
+  const submitButton = document.querySelector('.submit-feed');
+  const feedField = document.querySelector('.submit-feed-input');
+
+  submitButton.addEventListener('click', () => {
+    console.log("Adding " + feedField.value + " to notify list !");
+
+    const data = {
+      subscription: mySubscription,
+      feed: feedField.value
+    };
+    if (mySubscription) {
+      $.ajax({
+        type: 'POST',
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        url: 'http://localhost:80/public/addFeed',
+        success: function(data) {
+          console.log('success');
+          console.log(JSON.stringify(data));
+        },
+        error: function(err) {
+          console.log('failed');
+          console.log(JSON.stringify(err));
+        }
+      });
+    }
+
+    feedField.value = "";
+  });
+
 })();
+

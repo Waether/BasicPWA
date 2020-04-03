@@ -20,6 +20,11 @@ app.post('/public/register', (request, response) => {
     response.send("Received")
 });
 
+app.post('/public/addFeed', (request, response) => {
+    console.log("Body : " + util.inspect(request.body, false, null, true /* enable colors */))
+    response.send("Received")
+});
+
 const httpServer = http.createServer(app);
 
 httpServer.listen(80, () => {
