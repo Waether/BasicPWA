@@ -37,8 +37,6 @@ const app = (() => {
           }
           updateBtn();
         });
-    // and get the subscription object
-
   }
 
   // VAPID Key
@@ -89,7 +87,6 @@ const app = (() => {
 
   function updateSubscriptionOnServer(subscription) {
 
-    // We send the subscription to the server
     console.log("Sending POST to server ...");
     console.log("Sending : " + JSON.stringify(subscription));
     const data = {
@@ -112,7 +109,6 @@ const app = (() => {
         }
       });
     }
-    // We send the subscription to the server
 
     // TO REMOVE
     const subscriptionJson = document.querySelector('.js-subscription-json');
