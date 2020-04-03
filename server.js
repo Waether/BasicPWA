@@ -1,12 +1,23 @@
 const express = require("express");
 const http = require('http');
-const fs = require('fs');
+const util = require('util');
 const app = express();
+const bodyParser = require('body-parser');
 
 app.use('/', express.static('app/'));
 
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
+
 app.get('/', (request, response) => {
     response.sendFile(__dirname + "/app/index.html");
+});
+
+app.post('/public/register', (request, response) => {
+    console.log("Body : " + util.inspect(request.body, false, null, true /* enable colors */))
+    response.send("Received")
 });
 
 const httpServer = http.createServer(app);
