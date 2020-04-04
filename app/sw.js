@@ -7,23 +7,18 @@ self.addEventListener('notificationclose', event => {
 
 self.addEventListener('notificationclick', event => {
     const notification = event.notification;
-    const primaryKey = notification.data.primaryKey;
-    const action = event.action;
 
-    if (action === 'close') {
-        notification.close();
-    } else {
-        // Here open subreddit
-        // clients.openWindow('samples/page' + primaryKey + '.html');
-        notification.close();
-    }
+    console.log("went through here");
+    clients.openWindow(notification.data.link);
+    notification.close();
 });
 
 self.addEventListener('push', event => {
     let body;
 
     if (event.data) {
-        body = event.data.text();
+        body = JSON.parse(event.data.text()).text;
+//        body = event.data.text();
     } else {
         body = 'Default body';
     }
@@ -33,6 +28,7 @@ self.addEventListener('push', event => {
         icon: 'images/notification-flat.png',
         vibrate: [100, 50, 100],
         data: {
+            link: JSON.parse(event.data.text()).link,
             dateOfArrival: Date.now(),
             primaryKey: 1
         },

@@ -1,23 +1,11 @@
-const webPush = require('web-push');
+const NotificationManager = require('./NotificationManager');
 
-const pushSubscription = {"endpoint":"https://updates.push.services.mozilla.com/wpush/v2/gAAAAABeh2G1h56QHEJRZ_Rfumb463SRXqxsAgl5GO-CEg5nIYj8_EE8hqqgSAsTUvHSUVf7F7umgCCjbD7G_r4ddhjN4wZDxiaaUBbQdE__nL-WCFpkc9uloARinpzD_NdPonF2KgBBR6ceDLR8MJiEaGRuzAYTwqkenWSawK4rnjFGMEVkstc","keys":{"auth":"rPvppUQvFvLI6aSv3ASfrw","p256dh":"BAcOr3hU5RaEe7kStLrYg6g72SM0TRRwv40eKnXIZEYqyxFNodLM3hXQgPYdt2frSU6w0oGgPpJUBH8XmgVP8vA"}};
-
-const vapidPublicKey = 'BA-pfSa54gV6e1qJ9LUNjv8HBgD9wS7uIyXpipj2J699VIymFneA2o4wyaFuQXCI9CmAskIXBPkoyhckkLnMk04';
-const vapidPrivateKey = 'cW9UmEltl8loBNZyQfZFlci-rbB6bn6LeFzAvstvG0I';
-
-const payload = 'Here is a payload!';
-
-const options = {
-    TTL: 60,
-    vapidDetails: {
-        subject: 'mailto: YOUR_EMAIL_ADDRESS',
-        publicKey: vapidPublicKey,
-        privateKey: vapidPrivateKey
+const pushSubscription = {
+    endpoint: 'https://updates.push.services.mozilla.com/wpush/v2/gAAAAABeiFZCK3o7VmmXTe70vTi5MJf4xOpaCbWH2sd6qPUUgYVTTUis6OpA4gDkRaY6l4eav3bjEkp9aqW5Ddcvnnlb86sTbxZ62sxAaShEIhQNqNXR7rA9-hrZ7Es0M7yIQGu_2EHP45HD497wBpSQW92vFKhh1a59iNWtJhwA1qAMWOJlCIs',
+        keys: {
+        auth: 'bBW9J4Wlk4R2JB9QP6x82A',
+            p256dh: 'BDluDdZA_o-JdoQ_aDNYgy5XOC5uelkarUdn6SOeZ75Ye7xwKZAUClf6Ati-lkpDnL6VM8Ci1xaKUnd3HyJ77Zw'
     }
 };
 
-webPush.sendNotification(
-    pushSubscription,
-    payload,
-    options
-);
+NotificationManager.sendNotification(pushSubscription, 'https://google.com');

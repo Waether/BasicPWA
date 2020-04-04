@@ -9,6 +9,7 @@ app.use('/', express.static('app/'));
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
 app.use(bodyParser.json());
 
 app.get('/', (request, response) => {
@@ -16,12 +17,12 @@ app.get('/', (request, response) => {
 });
 
 app.post('/public/register', (request, response) => {
-    console.log("Body : " + util.inspect(request.body, false, null, true /* enable colors */))
+    console.log("Body : " + util.inspect(request.body, false, null, true /* enable colors */));
     response.send("Received")
 });
 
 app.post('/public/addFeed', (request, response) => {
-    console.log("Body : " + util.inspect(request.body, false, null, true /* enable colors */))
+    console.log("Body : " + util.inspect(request.body, false, null, true /* enable colors */));
     response.send("Received")
 });
 
