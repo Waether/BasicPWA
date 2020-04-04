@@ -1,5 +1,3 @@
-// cache
-
 const cacheName = '';
 const precacheResources = [
     '/',
@@ -42,8 +40,6 @@ self.addEventListener('fetch', event => {
         })
     );
 });
-
-// cache
 
 self.addEventListener('notificationclose', event => {
     const notification = event.notification;

@@ -2,7 +2,15 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 25%;
+    width: 80%;
+    max-width: 500px;
+}
+
+.reddit-logo {
+    width: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .form-feed{
