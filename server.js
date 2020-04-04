@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require('express');
 const http = require('http');
 const util = require('util');
 const app = express();
@@ -9,19 +9,15 @@ app.use('/', express.static('app/'));
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
 app.use(bodyParser.json());
 
 app.get('/', (request, response) => {
     response.sendFile(__dirname + "/app/index.html");
 });
 
-app.post('/public/register', (request, response) => {
-    console.log("Body : " + util.inspect(request.body, false, null, true /* enable colors */))
-    response.send("Received")
-});
-
 app.post('/public/addFeed', (request, response) => {
-    console.log("Body : " + util.inspect(request.body, false, null, true /* enable colors */))
+    console.log("Body : " + util.inspect(request.body, false, null, true /* enable colors */));
     response.send("Received")
 });
 
