@@ -30,3 +30,24 @@ const httpServer = http.createServer(app);
 httpServer.listen(80, () => {
     console.log('HTTP Server running on port 80');
 });
+
+let Parser = require('rss-parser');
+let parser = new Parser();
+
+var nIntervId;
+
+nIntervId = setInterval(getrss, 6000);
+
+
+async function getrss() {
+
+    let feed = await parser.parseURL('https://www.reddit.com/r/all.rss');
+
+    let now = Date();
+    let b = now.toISOString();
+
+    console.log(b);
+
+    console.log(feed.items[feed.items.length -1].pubDate);
+    console.log(feed.items[feed.items.length -1].isoDate);
+}
