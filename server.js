@@ -21,7 +21,7 @@ app.get('/', (request, response) => {
 app.post('/public/addFeed', (request, response) => {
     if (request.body.subscription && request.body.feed) {
         for (const elem of UserNotifications) {
-            if (elem.subscription.endpoint === request.body.subscription.endpoint) {
+            if (elem.subscription.endpoint === request.body.subscription.endpoint && elem.link === request.body.link) {
                 response.send("Received");
                 return;
             }
@@ -47,27 +47,36 @@ httpServer.listen(80, () => {
 let Parser = require('rss-parser');
 const Moment = require('moment');
 var nIntervId;
+let notif = require('./NotificationManager');
 
-nIntervId = setInterval(getrss, 6000);
-
+nIntervId = setInterval(getrss, 60000);
 
 async function getrss() {
 
-    let parser = new Parser();
-    let moment = new Moment();
+    for (const elem of UserNotifications) {
+            console.log("Subscription : " + util.inspect(elem.subscription, false, null, true /* enable colors */));
+            console.log("Link : " + elem.link);
 
-    let feed = await parser.parseURL('https://www.reddit.com/r/memes/new.rss');
 
-    let now = moment.format();
+        let parser = new Parser();
+        let moment = new Moment();
 
-    console.log("\n----- " + now.slice(0, 19) + " ------");
+        let feed = await parser.parseURL('https://www.reddit.com' + elem.link + '/new.rss');
 
-    feed.items.forEach(item => {
-        let today = new Date(now.slice(0, 19));
-        let post = new Date(item.isoDate.slice(0, 19));
-        let diffMs = (today - post);
-        let diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
+        let now = moment.format();
 
-        console.log(diffMins + "  =>  " + item.isoDate.slice(0, 19));
-    });
+        console.log("\n----- " + now.slice(0, 19) + " ------");
+
+        feed.items.forEach(item => {
+            let today = new Date(now.slice(0, 19));
+            let post = new Date(item.isoDate.slice(0, 19));
+            let diffMs = (today - post);
+            let diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
+
+            if (diffMins < 1) {
+                notif.sendNotification(elem.subscription, item.link);
+                console.log(diffMins + "  =>  " + item.isoDate.slice(0, 19));
+            }
+        });
+    }
 }
