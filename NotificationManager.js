@@ -23,11 +23,16 @@ class NotificationManager {
 
         let payload = JSON.stringify(payload_details);
 
-        webPush.sendNotification(
-            subscription,
-            payload,
-            this.options
-        );
+        try {
+            webPush.sendNotification(
+                subscription,
+                payload,
+                this.options
+            );
+        } catch (err) {
+            console.error(err);
+            // my job here is done
+        }
     }
 }
 
