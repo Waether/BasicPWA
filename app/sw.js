@@ -1,3 +1,50 @@
+// cache
+
+const cacheName = '';
+const precacheResources = [
+    '/',
+    '/index.html',
+    '/style.css',
+    '/js/main.js',
+    '/images/checkmark.png',
+    '/images/notification-flat.png',
+    '/images/logo.png',
+    '/images/reddit-logo-128.png',
+    '/images/reddit-logo-192.png',
+    '/images/reddit-logo-256.png',
+    '/images/reddit-logo-384.png',
+    '/images/reddit-logo-512.png',
+    '/images/xmark.png'
+];
+
+self.addEventListener('install', event => {
+    console.log('Service worker install event!');
+    event.waitUntil(
+        caches.open(cacheName)
+            .then(cache => {
+                return cache.addAll(precacheResources);
+            })
+    );
+});
+
+self.addEventListener('activate', event => {
+    console.log('Service worker activate event!');
+});
+
+self.addEventListener('fetch', event => {
+    console.log('Fetch intercepted for:', event.request.url);
+    event.respondWith(caches.match(event.request)
+        .then(cachedResponse => {
+            if (cachedResponse) {
+                return cachedResponse;
+            }
+            return fetch(event.request);
+        })
+    );
+});
+
+// cache
+
 self.addEventListener('notificationclose', event => {
     const notification = event.notification;
     const primaryKey = notification.data.primaryKey;

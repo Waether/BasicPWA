@@ -8,7 +8,7 @@ class NotificationManager {
         this.options = {
             TTL: 60,
             vapidDetails: {
-                subject: 'mailto: YOUR_EMAIL_ADDRESS',
+                subject: 'mailto: nathan.hautbois@epitech.eu',
                 publicKey: this.vapidPublicKey,
                 privateKey: this.vapidPrivateKey
             }

@@ -7,27 +7,23 @@
   <title>Push Notifications</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="/style.css"/>
+  <meta name="theme-color" content="#D80000"/>
+  <link rel="apple-touch-icon" href="/images/reddit-logo-192.png">
+  <meta name="Description" content="A basic app to notify users when a reddit article is created.">
 </head>
 
 <body>
 
 <div class="all-content">
-  <img src="/images/RedditLogo.png" class="reddit-logo" alt="logo">
+  <img src="images/logo.png" class="reddit-logo" alt="logo">
   <form class="form-feed">
     <label for="submit-field"></label>
     <input type="text" class="submit-feed-input" id="submit-field" placeholder="/r/...">
   </form>
   <button class="submit-feed">Notify Me !</button>
-</div>
-
-<div >
   <button disabled class="js-push-btn">Receive Notifications</button><br><br>
-  <section class="js-sub-endpoint">
-    <h3>Subscription Object:</h3>
-    <code class="js-subscription-json"></code><br><br><br>
-  </section>
 </div>
 
-  <script src="js/main.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>

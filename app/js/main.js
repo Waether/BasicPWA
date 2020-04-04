@@ -87,44 +87,8 @@ const app = (() => {
   }
 
   function updateSubscriptionOnServer(subscription) {
-
     if (subscription)
       mySubscription = subscription;
-
-    console.log("Sending POST to server ...");
-    console.log("Sending : " + JSON.stringify(subscription));
-    const data = {
-      subscription: subscription,
-      feed: "TestFeed"
-    };
-    if (subscription) {
-      $.ajax({
-        type: 'POST',
-        data: JSON.stringify(data),
-        contentType: 'application/json',
-        url: 'http://localhost:80/public/register',
-        success: function(data) {
-          console.log('success');
-          console.log(JSON.stringify(data));
-        },
-        error: function(err) {
-          console.log('failed');
-          console.log(JSON.stringify(err));
-        }
-      });
-    }
-
-    // TO REMOVE
-    const subscriptionJson = document.querySelector('.js-subscription-json');
-    const subAndEndpoint = document.querySelector('.js-sub-endpoint');
-
-    if (subscription) {
-      subscriptionJson.textContent = JSON.stringify(subscription);
-      // subAndEndpoint.style.display = 'block';
-    } else {
-      subAndEndpoint.style.display = 'none';
-    }
-    // TO REMOVE
   }
 
   function updateBtn() {
@@ -136,8 +100,10 @@ const app = (() => {
     }
 
     if (isSubscribed) {
+      pushButton.style.backgroundColor = 'red';
       pushButton.textContent = 'Disable Push Messaging';
     } else {
+      pushButton.style.backgroundColor = 'green';
       pushButton.textContent = 'Enable Push Messaging';
     }
     pushButton.disabled = false;
